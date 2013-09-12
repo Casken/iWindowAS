@@ -1,0 +1,220 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:TitleWindow xmlns:fx="http://ns.adobe.com/mxml/2009" 
+			   xmlns:s="library://ns.adobe.com/flex/spark" 
+			   xmlns:mx="library://ns.adobe.com/flex/mx" width="400" height="300" 
+			   creationComplete="inicioVentana(event)"
+			   close="cerrarVentana(event)"
+			   xmlns:ventana="com.cetesdirecto.ventana.*"
+			   xmlns:componentes="com.cetesdirecto.componentes.*" 
+			   width.estadoMaximizado="{contenedor.width}" 
+			   height.estadoMaximizado="{contenedor.height}" 
+			   currentState="estadoRestaurado" windowMoving="limitarVentana(event)" 
+			   skinClass="com.cetesdirecto.skins.SkinVentana" title="Titulo de la Ventana" color="0xFFFFFF" >
+
+	<fx:Script>
+		<![CDATA[
+			import mx.controls.Alert;
+			import mx.controls.Label;
+			import mx.events.CloseEvent;
+			import mx.events.ColorPickerEvent;
+			import mx.events.FlexEvent;
+			import mx.events.MoveEvent;
+			import mx.graphics.SolidColor;
+			import mx.managers.PopUpManager;
+			
+			import spark.components.BorderContainer;
+			import spark.components.Label;
+			import spark.core.IDisplayText;
+			import spark.effects.Move;
+			import spark.effects.Resize;
+			import spark.events.TitleWindowBoundsEvent;
+			import spark.primitives.Rect;
+			
+			public var resizeVentana:Resize = new Resize();
+			
+			public var mover:Move = new Move();		
+			
+			/** corresponde al ancho del area de trabajo para restaurar**/
+			[Bindable]
+			public var anchoATRestaurar:int;
+			
+			/** corresponde al alto del area de trabajo para restaurar **/
+			[Bindable]
+			public var altoATRestaurar:int;
+			
+			public var xARRestaurar:int;
+			
+			public var yARRestaurar:int;
+			
+			[Bindable]
+			public var isMaximizada:Boolean;
+			
+			[Bindable]
+			public var contenedor:BorderContainer;
+			
+			[SkinPart(required="false")]
+			public var colorFondoTitulo:SolidColor;
+			
+			//[SkinPart(required="false")]
+			//public var titleDisplay:IDisplayText;
+			
+			public var colorTextoTitulo:spark.components.Label;
+			
+			protected function inicioVentana(event:FlexEvent):void
+			{
+				addEventListener("clicBoton",mandarAlert);
+				mover.target = this;
+				resizeVentana.target = this;
+				if (contenedor != null){
+					maxHeight = contenedor.height;
+					maxWidth = contenedor.width;
+				}
+				
+			}
+			
+			protected function mandarAlert (event:Event):void
+			{
+				Alert.show (event.currentTarget + "[****]" + event.target);
+			}
+			
+			protected function presionarBtnVentana(event:MouseEvent):void
+			{
+				dispatchEvent(new Event("ventanaMaximizada"));
+				
+			}
+			
+			protected function cerrarVentana(event:CloseEvent):void
+			{
+				PopUpManager.removePopUp(this);
+			}
+			
+			protected function moverVentanaMaximizar():void
+			{				
+				//inicia a moverse en
+				mover.xFrom = this.x;
+				mover.yFrom = this.y;
+				
+				//hasta donde se movera
+				mover.xTo = contenedor.x,
+				mover.yTo = contenedor.y;
+				
+				//realiza el movimiento
+				mover.end();
+				mover.play();
+			}
+			
+			protected function moverVentanaRestaurar():void
+			{
+				mover.xFrom = this.x;
+				mover.yFrom = this.y;
+				
+				mover.xTo = xARRestaurar;
+				mover.yTo = yARRestaurar;
+				
+				//realiza el movimiento
+				mover.end();
+				mover.play();
+			}
+			
+			protected function resizeVentanaMaximizar():void
+			{
+				//guarda el ancho y alto antes de ser maximizado
+				anchoATRestaurar = this.width;
+				altoATRestaurar = this.height;
+				
+				//guarda el valor de x y y antes de ser restaurado
+				xARRestaurar = this.x;
+				yARRestaurar = this.y
+					
+				//Tamanio hasta donde se realizara resize
+				resizeVentana.heightTo = contenedor.height;
+				resizeVentana.widthTo = contenedor.width;
+				
+				resizeVentana.end();
+				resizeVentana.play();
+				
+				isMaximizada = true;
+				currentState = "estadoMaximizado";
+				
+			}
+			
+			protected function resizeVentanaRestaurar():void 
+			{
+				resizeVentana.end();
+				
+				resizeVentana.heightTo = altoATRestaurar;
+				resizeVentana.widthTo = anchoATRestaurar;
+				
+				resizeVentana.play();
+				
+				isMaximizada = false;
+			}
+						
+			protected function maximizarVentana(event:MouseEvent):void
+			{				
+				moverVentanaMaximizar();
+				resizeVentanaMaximizar();
+				dispatchEvent(new Event ("ventanaMaximizada"));
+			}
+			
+			protected function restaurarVentana(event:MouseEvent):void
+			{
+				moverVentanaRestaurar();
+				resizeVentanaRestaurar();				
+				dispatchEvent(new Event("ventanaRestaurada"));
+				currentState = "estadoRestaurado";
+			}
+
+			protected function limitarVentana(event:TitleWindowBoundsEvent):void
+			{
+				if (event.afterBounds.left < contenedor.x){
+					event.afterBounds.left = contenedor.x;
+				}else if (event.afterBounds.right > (contenedor.width + contenedor.x)){
+					event.afterBounds.left = ( contenedor.width - event.afterBounds.width) + contenedor.x;
+				}
+				
+				if (event.afterBounds.top < contenedor.y){
+					event.afterBounds.top = contenedor.y;
+				}else if (event.afterBounds.bottom > (contenedor.height + contenedor.y)){
+					event.afterBounds.top = (contenedor.height - event.afterBounds.height) + contenedor.y;
+				}
+			}
+			
+			override protected function partAdded(partName:String, instance:Object):void
+			{
+				super.partAdded(partName,instance);
+				if (instance == colorFondoTitulo){
+					//Alert.show("Son iguales");
+					colorFondoTitulo.alpha = .8;
+					colorFondoTitulo.color = 0xFF0000;
+					
+				}else if (instance == titleDisplay){
+					
+					titleDisplay["color"] = 0x000000;
+				}
+				
+			}
+			
+			protected function color_changeHandler(event:ColorPickerEvent):void
+			{
+				colorFondoTitulo.color = color.selectedColor;
+			}
+			
+		]]>
+	</fx:Script>
+	<s:states>
+		<s:State name="estadoMaximizado" />
+		
+		<s:State name="estadoRestaurado" />
+	</s:states>
+	
+	<!--<s:ModuleLoader id="cargaModulo" url="com/cetesdirecto/modulo/Ahorro.swf" top="0" left="0" right="0" bottom="25" /> -->
+	<s:HGroup width="100%">
+		<s:Button id="btn" bottom="2" label="VentanaMaximizada" click="presionarBtnVentana(event)" />
+		<s:Button id="btnMaximizar" visible.estadoMaximizado="false" label="Maximizar" bottom="30" click="maximizarVentana(event)" />
+		<s:Button id="btnRestaurar" visible.estadoRestaurado="false" label="Restaurar" click="restaurarVentana(event)" />
+		<mx:ColorPicker id="color" change="color_changeHandler(event)"/>
+	</s:HGroup>
+	
+	<!--<componentes:DetalleInstrumento top="30" />-->
+</s:TitleWindow>

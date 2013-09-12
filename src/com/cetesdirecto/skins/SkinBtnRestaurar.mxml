@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:Skin xmlns:s="library://ns.adobe.com/flex/spark" xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:d="http://ns.adobe.com/fxg/2008/dt">
+	<fx:Metadata>[HostComponent("spark.components.Button")]</fx:Metadata>
+	<s:states>
+		<s:State name="up"/>
+		<s:State name="over"/>
+		<s:State name="down"/>
+		<s:State name="disabled"/>
+	</s:states>
+	<s:BitmapImage smooth="true" source="@Embed('/assets/iconsVentana/iconBtnRestaurar.png')" d:userLabel="Restaurar" x="0" y="0">
+		<s:filters>
+			<s:DropShadowFilter includeIn="over" blurX="4.0" blurY="4.0" distance="4.0" hideObject="false" inner="false" color="0x000000" strength="1" alpha="0.5" quality="2" knockout="false" angle="45.0"/>
+		</s:filters>
+	</s:BitmapImage>
+</s:Skin>

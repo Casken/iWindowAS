@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:Group xmlns:fx="http://ns.adobe.com/mxml/2009" 
+		 xmlns:s="library://ns.adobe.com/flex/spark" 
+		 xmlns:mx="library://ns.adobe.com/flex/mx" top="0" right="0" bottom="0" left="0" creationComplete="init(event)">
+	
+	<fx:Script>
+		<![CDATA[
+			import mx.controls.Alert;
+			import mx.events.FlexEvent;
+			protected function presionarBoton(event:MouseEvent):void
+			{
+				
+				dispatchEvent(new Event ("clicBoton",true));
+			}
+			
+			protected function init(event:FlexEvent):void
+			{
+				/* owner.addEventListener("ventanaMaximizada",mostrarAlert,true);
+				par */
+				//this.parentApplication.ventanaActual.addEventListener("ventanaMaximizada",mostrarAlert);
+				/* addEventListener("ventanaMaximizada",mostrarAlert,true);
+				addEventListener("ventanaMaximizada",mostrarAlert,false); */
+				systemManager.addEventListener("ventanaMaximizada",mostrarAlert,true);
+				
+			}
+			
+			protected function mostrarAlert(event:Event):void
+			{
+				Alert.show("Alert desde el Formulario");
+			}
+			
+		]]>
+	</fx:Script>
+	
+	
+	<s:Button label="Presioname" click="presionarBoton(event)" />
+	
+	
+</s:Group>

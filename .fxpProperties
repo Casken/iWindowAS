@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<fxpProperties abbreviated="false" authoringTool="Flex Builder" compiles="true" parentProject="4a0c9900-874e-476f-951b-e4cfe60a0836" projectUUID="4a0c9900-874e-476f-951b-e4cfe60a0836" pureCatalystProject="false" sdkVersion="4.5.0" uuid="adec471f-5629-4f07-85a8-0db412f9eede" version="15">
+  <projects/>
+  <src/>
+  <swc>
+    <linked location="sdkPlaceHolder" path="sdkPlaceHolder" position="0" uuid="adec471f-5629-4f07-85a8-0db412f9eede"/>
+    <linked location="C:/cetesdirecto/develop/workspaces/cetesninos.jboss/efectosFlex/libs" path="/libs" position="1" uuid="adec471f-5629-4f07-85a8-0db412f9eede"/>
+  </swc>
+  <misc/>
+  <theme/>
+  <mxmlFormattingPrefs groupAttributesByState="true" maxLineWidth="100" mxmlAlignAttributes="true" mxmlAttributeOrder="id,userLabel,includeIn,excludeFrom,visible,x,y,z,left,right,top,bottom,width,height,minWidth,minHeight,maxWidth,maxHeight,label" mxmlKeepAttributeValuesOrganized="true"/>
+</fxpProperties>

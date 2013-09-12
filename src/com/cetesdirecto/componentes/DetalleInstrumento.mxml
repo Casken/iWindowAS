@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:Group xmlns:fx="http://ns.adobe.com/mxml/2009" 
+		 xmlns:s="library://ns.adobe.com/flex/spark" 
+		 xmlns:mx="library://ns.adobe.com/flex/mx" xmlns:skins="com.cetesdirecto.newsvd.skins.*" top="0" right="0" bottom="0" left="10" >
+	<fx:Script>
+		<![CDATA[
+			[Bindable]
+			public var provider:Object;
+		]]>
+	</fx:Script>
+	
+	<s:VGroup width="100%" height="100%">
+		
+		<s:Label width="100%" fontWeight="bold" paddingBottom="2" paddingTop="5"
+				 text="Detalle del Instrumento" textAlign="center" verticalAlign="middle"/>
+		
+		<s:Label text="Datos posición" paddingBottom="5" paddingTop="5" paddingLeft="10" verticalAlign="middle" textAlign="left" width="100%" fontWeight="bold" />
+		
+		
+		<s:TileGroup top="30" width="100%" height="100%" requestedColumnCount="2"
+					 requestedRowCount="3">
+			
+			<s:Label text="Títulos" textAlign="center" verticalAlign="middle" />
+			<s:Label text="Precio Adquisición"  textAlign="center" verticalAlign="middle" />
+			
+			<s:TextInput prompt="150" text="{provider.titulos}" enabled="false" />
+			<s:TextInput prompt="9.97" text="{provider.precioAd}" enabled="false" />
+			
+			<s:Label text="Monto Adquisición" textAlign="center" verticalAlign="middle" />
+			<s:Label text="Fecha Vencimiento" textAlign="center" verticalAlign="middle" />
+			
+			<s:TextInput prompt="1,495.56" text="{provider.montoAd}" enabled="false" />
+			<s:TextInput prompt="18-07-2013" text="{provider.fechaAd}" enabled="false" />
+			
+			<s:Label text="Tasa Rendimiento" textAlign="center" verticalAlign="middle" />
+			<s:Label text="Tasa Cupón" textAlign="center" verticalAlign="middle" />
+			
+			<s:TextInput prompt="3.81" text="{provider.tasaRendimiento}" enabled="false" />
+			<s:TextInput prompt="0" text="{provider.tasaCurpon}" enabled="false" />
+			
+			<s:Label text="Plazo Original (días)" textAlign="right" verticalAlign="middle" />
+			<s:TextInput prompt="28" text="{provider.plazo}" enabled="false" />
+			
+			<s:Label text="Tipo de pago" textAlign="right" verticalAlign="middle" />
+			<s:TextInput prompt="DOMI" text="{provider.tipoPago}" enabled="false" />
+			
+			<s:Label text="Plazo remanente (días)" textAlign="right" verticalAlign="middle" />
+			<s:TextInput prompt="7"  text="{provider.plazoRe}" enabled="false"/>
+			
+		</s:TileGroup>
+		
+		<s:Label text="Valuación a mercado" paddingBottom="5" paddingTop="5" paddingLeft="10" verticalAlign="middle" textAlign="left" width="100%" fontWeight="bold" />
+		
+		<s:TileGroup width="100%" height="100%" requestedColumnCount="2">
+			
+			<s:Label text="Valor UDI"  verticalAlign="middle" textAlign="center" />
+			<s:Label text="Precio mercado" verticalAlign="middle" textAlign="center" />
+			
+			<s:TextInput prompt="4.9" text="{provider.udi}" enabled="false" />
+			<s:TextInput prompt="9.99" text="{provider.precioMercado}" enabled="false"/>
+			
+			
+			<s:Label text="Monto actual" verticalAlign="middle" textAlign="center"/>
+			<s:Label text="Plusvalía/Minusvalía" verticalAlign="middle" textAlign="center" />
+			
+			<s:TextInput prompt="1.498.72" text="{provider.montoActual}" enabled="false" />
+			<s:TextInput prompt="3.161" text="{provider.plusvalia}" enabled="false" />
+		</s:TileGroup>
+		
+		
+		
+	</s:VGroup>
+	
+	
+	
+	
+</s:Group>
